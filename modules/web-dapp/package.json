@@ -1,0 +1,25 @@
+{
+  "name": "web-dapp",
+  "version": "0.0.1",
+  "description": "Web dApp for the HOMIE platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homiesglobal/homiesglobal.git"
+  },
+  "keywords": [
+    "moralis",
+    "web3",
+    "dApp",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/homiesglobal/homiesglobal/issues"
+  },
+  "homepage": "https://github.com/homiesglobal/homiesglobal#readme"
+}

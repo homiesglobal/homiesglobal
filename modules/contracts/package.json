@@ -1,0 +1,24 @@
+{
+  "name": "contracts",
+  "version": "0.0.1",
+  "description": "Smart contract codes for the HOMIE token",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homiesglobal/homiesglobal.git"
+  },
+  "keywords": [
+    "crypto",
+    "web3",
+    "erc20"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/homiesglobal/homiesglobal/issues"
+  },
+  "homepage": "https://github.com/homiesglobal/homiesglobal#readme"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "homeiesglobal",
+  "version": "0.0.1",
+  "description": "HOMIE Platform",
+  "main": "index.js",
+  "repository": "git@github.com:homiesglobal/homiesglobal.git",
+  "author": "Perfect <developer@homiesglobal.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "modules/contracts",
+    "modules/web-dapp"
+  ]
+}
