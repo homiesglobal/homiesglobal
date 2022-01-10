@@ -4,3 +4,7 @@
 node_modules
 .env
 build
+
+# ignore package-lock.json files in modules
+# npm installation should be done at the root directory like: npm install <npm-package-name> -w <module-name>
+modules/**/package-lock.json
