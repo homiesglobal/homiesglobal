@@ -5,10 +5,13 @@
   "main": "index.js",
   "repository": "git@github.com:homiesglobal/homiesglobal.git",
   "author": "Perfect <developer@homiesglobal.com>",
-  "license": "MIT",
+  "scripts": {
+    "test": "npm run test --workspaces --if-present"
+  },
   "private": true,
   "workspaces": [
     "modules/contracts",
     "modules/web-dapp"
-  ]
+  ],
+  "license": "MIT"
 }
