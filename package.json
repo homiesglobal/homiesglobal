@@ -6,7 +6,8 @@
   "repository": "git@github.com:homiesglobal/homiesglobal.git",
   "author": "Perfect <developer@homiesglobal.com>",
   "scripts": {
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present",
+    "start": "npm run start --workspaces --if-present"
   },
   "private": true,
   "workspaces": [

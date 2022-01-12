@@ -43,7 +43,9 @@ Now you are setup to start running aspects of the project.
 
 ### 2. Running the whole platform
 
-> TODO: npm run dev
+```shell
+npm run start
+```
 
 ### 3. Running tests
 
