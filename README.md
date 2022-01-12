@@ -2,6 +2,7 @@
 
 This is the main code repository for the Homiesglobal social crypto experiment.
 
+
 ## Project Structure
 
 This project is largely a mono repository that is using the [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) feature
