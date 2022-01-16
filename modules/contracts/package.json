@@ -20,7 +20,6 @@
   "bugs": {
     "url": "https://github.com/homiesglobal/homiesglobal/issues"
   },
-  "homepage": "https://github.com/homiesglobal/homiesglobal#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-etherscan": "^2.1.8",

@@ -2,7 +2,7 @@
 .vscode
 
 node_modules
-.env
+modules/web-dapp/.env
 build
 
 # ignore package-lock.json files in modules

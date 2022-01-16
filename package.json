@@ -9,6 +9,7 @@
     "test": "npm run test --workspaces --if-present",
     "start": "npm run start --workspaces --if-present"
   },
+  "homepage": "https://github.com/homiesglobal/homiesglobal#readme",
   "private": true,
   "workspaces": [
     "modules/contracts",
