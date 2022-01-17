@@ -1,4 +1,4 @@
-# Advanced Sample Hardhat Project
+# `HOMIE Smart Contracts`
 
 This module contains the smart contract solidity code for the HOMIE projects.
 
