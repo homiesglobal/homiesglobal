@@ -1,5 +1,5 @@
 {
-  "name": "homeiesglobal",
+  "name": "@homeiesglobal/monorepo",
   "version": "0.0.1",
   "description": "HOMIE Platform",
   "main": "index.js",
@@ -7,6 +7,8 @@
   "author": "Perfect <developer@homiesglobal.com>",
   "scripts": {
     "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
     "start": "npm run start --workspaces --if-present"
   },
   "homepage": "https://github.com/homiesglobal/homiesglobal#readme",

@@ -27,7 +27,7 @@ after going through the list below.
 
 The following dependencies are required to successfully run this codebase project:
 
-1. Node.js `>= 12.0.0`. You can visit [here](https://nodejs.org/en/download/) to install on your computer. 
+1. Node.js `>= 14.7.0` and Npm `>= 7.X`. You can visit [here](https://nodejs.org/en/download/) to install on your computer. 
 For easier control on your Node.js installation versions, I recommend you use [NVM to install](https://github.com/nvm-sh/nvm#installing-and-updating) node.js. 
 
 
