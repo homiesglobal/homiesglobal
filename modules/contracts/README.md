@@ -38,7 +38,7 @@ to ensure that your new contract is deployed correctly.
 
 > TODO: Add details about deploying to testnet
 
-## Some usefull hardhat commands
+## Some useful hardhat commands
 
 Try running some of the following tasks:
 
