@@ -1,7 +1,6 @@
 import { Card, Input, Button, Typography, Row, Col, Form } from "antd";
-import React, {useCallback, useMemo} from "react";
-// import {Greeter__factory} from "@homiesglobal/contracts/typechain";
-// import {ethers} from "ethers";
+import React, { useCallback } from "react";
+import {useGreeterContract} from "../hooks/useGreeterContract";
 
 const { Text, Paragraph } = Typography;
 
@@ -24,10 +23,7 @@ const styles = {
 };
 
 export const QuickStart = () => {
-  // const greeterContract = useMemo(() => {
-  //   const provider = new ethers.providers.JsonRpcProvider();
-  //   return Greeter__factory.connect('', provider);
-  // }, []);
+  const { greeting } = useGreeterContract();
 
   const onSubmitHandler = useCallback((values) => {
     console.log(values);
@@ -52,7 +48,7 @@ export const QuickStart = () => {
           Update the greeting value by submitting a new value in the input text below:
         </Paragraph>
         <Paragraph style={{ fontSize: "20px" }}>
-          Current greetings: <b>Hello</b>
+          Current greetings: <b>{greeting}</b>
         </Paragraph>
         <Form onFinish={onSubmitHandler}>
           <Input.Group>

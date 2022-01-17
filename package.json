@@ -7,6 +7,7 @@
   "author": "Perfect <developer@homiesglobal.com>",
   "scripts": {
     "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "lint:fix": "npm run lint:fix --workspaces --if-present",
     "start": "npm run start --workspaces --if-present"

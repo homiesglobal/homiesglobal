@@ -2,9 +2,10 @@
   "name": "@homiesglobal/contracts",
   "version": "0.0.1",
   "description": "Smart contract codes for the HOMIE token",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "npx hardhat test",
+    "build": "npx hardhat clean && npx hardhat compile && tsc",
     "eslint": "npx eslint '**/*.{js,ts}'",
     "eslint:fix": "npx eslint '**/*.{js,ts}' --fix",
     "solhint": "npx solhint 'contracts/**/*.sol'",
