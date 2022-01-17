@@ -27,7 +27,7 @@ This will start a local node with an rpc endpoint on http://localhost:8545.
 Next, to deploy your contract, run the deploy.ts script like:
 
 ```shell
-npx hardhat run scrips/deploy.ts
+npx hardhat run --network localhost scripts/deploy.ts
 ```
 
 If you've added new solidity smart contract to the `contracts/` directory, then be sure to update the `scripts/deploy.ts` script

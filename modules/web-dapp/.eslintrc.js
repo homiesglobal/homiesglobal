@@ -17,8 +17,10 @@ module.exports = {
     },
   },
   rules: {
-    "func-names": 0,
-    "@typescript-eslint/no-namespace": 0,
+    "func-names": "off",
+    "no-use-before-define": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-namespace": "off",
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
     "react/prop-types": "off",

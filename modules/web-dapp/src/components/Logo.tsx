@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Logo = () => (
+export const Logo: React.FC = () => (
   <div style={{ display: "flex" }}>
     <svg
       width="60"

@@ -17,7 +17,7 @@ async function main() {
   // AND Kindly ensure this is always the first contract to be deployed, so the
   // address of the contract deployed to hardhats local console never changes.
   const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const greeter = await Greeter.deploy("Hello, HOMIE!");
 
   await greeter.deployed();
 

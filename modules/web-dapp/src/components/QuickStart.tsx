@@ -1,4 +1,4 @@
-import { Card, Input, Button, Typography, Row, Col, Form } from "antd";
+import { Card, Input, Button, Typography, Row, Col, Form, Spin } from "antd";
 import React, { useCallback } from "react";
 import { useGreeterContract } from "../hooks/useGreeterContract";
 
@@ -20,14 +20,29 @@ const styles = {
   otherInfo: {
     marginTop: "10px",
   },
+  error: {
+    margin: "1rem 0",
+    padding: "0.5rem",
+    color: "#ffffff",
+    fontWeight: "bold",
+    background: "#bb8b8b",
+  },
 };
 
-export const QuickStart = () => {
-  const { greeting } = useGreeterContract();
+export const QuickStart: React.FC = () => {
+  const {
+    greeting,
+    setNewGreeting,
+    error: greetingError,
+    inProgress,
+  } = useGreeterContract();
 
-  const onSubmitHandler = useCallback((values) => {
-    console.log(values);
-  }, []);
+  const onSubmitHandler = useCallback(
+    (values) => {
+      setNewGreeting(values.greeting);
+    },
+    [setNewGreeting]
+  );
 
   return (
     <>
@@ -53,6 +68,9 @@ export const QuickStart = () => {
                 Current greetings: <b>{greeting}</b>
               </Paragraph>
               <Form onFinish={onSubmitHandler}>
+                {greetingError && (
+                  <div style={styles.error}>{greetingError}</div>
+                )}
                 <Input.Group>
                   <Form.Item
                     name="greeting"
@@ -65,9 +83,12 @@ export const QuickStart = () => {
                   >
                     <Input size="large" placeholder="Enter new Greeting" />
                   </Form.Item>
-                  <Button size="large" type="primary" htmlType="submit">
-                    Update Greeting
-                  </Button>
+                  {!inProgress && (
+                    <Button size="large" type="primary" htmlType="submit">
+                      Update Greeting
+                    </Button>
+                  )}
+                  {inProgress && <Spin />}
                 </Input.Group>
               </Form>
             </Card>

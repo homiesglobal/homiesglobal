@@ -51,11 +51,22 @@ npm run build
 
 Now you are setup to start running aspects of the project.
 
-### 4. Running the whole platform
+### 4. Running the whole platform locally
+
+First run, the smart contracts deployed to a local network with:
 
 ```shell
-npm run start
+npm run start -w @homiesglobal/contracts
 ```
+
+Next, run the dApp web App. In another terminal session run:
+
+```shell
+npm run start -w @homiesglobal/web-dapp
+```
+
+Now, if you visit: http://localhost:3000, you should be able to access the dApp and interact with the
+smart contract through the app.
 
 ### 5. Running tests
 

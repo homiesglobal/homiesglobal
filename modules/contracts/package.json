@@ -4,6 +4,9 @@
   "description": "Smart contract codes for the HOMIE token",
   "main": "dist/index.js",
   "scripts": {
+    "start": "run-p start:node deploy:local",
+    "start:node": "npx hardhat node",
+    "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
     "test": "npx hardhat test",
     "build": "npx hardhat clean && npx hardhat compile && tsc",
     "eslint": "npx eslint '**/*.{js,ts}'",
