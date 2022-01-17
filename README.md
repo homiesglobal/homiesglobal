@@ -27,10 +27,10 @@ after going through the list below.
 
 The following dependencies are required to successfully run this codebase project:
 
-1. Node.js `>= 14.7.0` and Npm `>= 7.X`. You can visit [here](https://nodejs.org/en/download/) to install on your computer. 
+1. Node.js `>= 16.3.0` and Npm `>= 7.X`. You can visit [here](https://nodejs.org/en/download/) to install on your computer. 
 For easier control on your Node.js installation versions, I recommend you use [NVM to install](https://github.com/nvm-sh/nvm#installing-and-updating) node.js. 
 
-### 2. Clone or fork ``:
+### 2. Clone or fork the repository:
 ```sh
 git clone https://github.com/homiesglobal/homiesglobal.git
 ```
@@ -49,7 +49,7 @@ Next build all workspace modules. This is recommended at least once each time a 
 npm run build
 ```
 
-Now you are setup to start running aspects of the project.
+Now you are set up to start running aspects of the project.
 
 ### 4. Running the whole platform locally
 
@@ -73,7 +73,7 @@ smart contract through the app.
 Running the following command should run tests across all the modules:
 
 ```shell
-npm run test
+CI=true npm run test
 ```
 
 ## LICENSE
