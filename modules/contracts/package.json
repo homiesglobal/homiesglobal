@@ -1,10 +1,22 @@
 {
-  "name": "contracts",
+  "name": "@homiesglobal/contracts",
   "version": "0.0.1",
   "description": "Smart contract codes for the HOMIE token",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "npx hardhat test"
+    "start": "run-p start:node deploy:local",
+    "start:node": "npx hardhat node",
+    "deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
+    "test": "npx hardhat test",
+    "build": "npx hardhat clean && npx hardhat compile && tsc",
+    "eslint": "npx eslint '**/*.{js,ts}'",
+    "eslint:fix": "npx eslint '**/*.{js,ts}' --fix",
+    "solhint": "npx solhint 'contracts/**/*.sol'",
+    "solhint:fix": "npx solhint 'contracts/**/*.sol' --fix",
+    "prettier": "npx prettier '**/*.{json,sol,md}' --check",
+    "prettier:fix": "npx prettier '**/*.{json,sol,md}' --write",
+    "lint": "run-p eslint solhint prettier",
+    "lint:fix": "run-s eslint:fix solhint:fix prettier:fix"
   },
   "repository": {
     "type": "git",
@@ -20,7 +32,6 @@
   "bugs": {
     "url": "https://github.com/homiesglobal/homiesglobal/issues"
   },
-  "homepage": "https://github.com/homiesglobal/homiesglobal#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-etherscan": "^2.1.8",
@@ -30,8 +41,8 @@
     "@types/chai": "^4.3.0",
     "@types/mocha": "^9.0.0",
     "@types/node": "^12.20.41",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
@@ -45,6 +56,7 @@
     "ethers": "^5.5.3",
     "hardhat": "^2.8.2",
     "hardhat-gas-reporter": "^1.0.7",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "solhint": "^3.3.6",

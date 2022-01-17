@@ -13,9 +13,11 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  // We get the contract to deploy
+  // NOTE: Do not delete the Greeter contract
+  // AND Kindly ensure this is always the first contract to be deployed, so the
+  // address of the contract deployed to hardhats local console never changes.
   const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const greeter = await Greeter.deploy("Hello, HOMIE!");
 
   await greeter.deployed();
 
