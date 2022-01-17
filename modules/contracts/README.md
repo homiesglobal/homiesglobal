@@ -1,11 +1,43 @@
 # Advanced Sample Hardhat Project
 
+This module contains the smart contract solidity code for the HOMIE projects.
+
 > NOTE: This module was bootstrapped using the [Hardhat](https://hardhat.org/) framework. The readme will be updated soon
 > with more project specific information once the project starts.
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+## 🚀 Quick Start
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+The quickest way to ensure everything is working is by running the tests in the
+
+```sh
+npm run test
+```
+
+## Deploying Contracts Locally
+
+Hardhat has the ability to run a local EVM node, that you can deploy contracts to locally for testing.
+
+First, run the local EVM node with:
+
+```shell
+npx hardhat node
+```
+This will start a local node with an rpc endpoint on http://localhost:8545.
+
+Next, to deploy your contract, run the deploy.ts script like:
+
+```shell
+npx hardhat run scrips/deploy.ts
+```
+
+If you've added new solidity smart contract to the `contracts/` directory, then be sure to update the `scripts/deploy.ts` script
+to ensure that your new contract is deployed correctly.
+
+## Deploying Contracts to Testnet/Mainnet
+
+> TODO: Add details about deploying to testnet
+
+## Some usefull hardhat commands
 
 Try running some of the following tasks:
 
