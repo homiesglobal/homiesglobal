@@ -22,6 +22,7 @@ First, run the local EVM node with:
 ```shell
 npx hardhat node
 ```
+
 This will start a local node with an rpc endpoint on http://localhost:8545.
 
 Next, to deploy your contract, run the deploy.ts script like:
