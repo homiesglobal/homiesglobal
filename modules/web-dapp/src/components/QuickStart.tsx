@@ -1,7 +1,7 @@
 import { Card, Input, Button, Typography, Row, Col, Form } from "antd";
 import React, {useCallback, useMemo} from "react";
-import {Greeter__factory} from "@homiesglobal/contracts/typechain";
-import {ethers} from "ethers";
+// import {Greeter__factory} from "@homiesglobal/contracts/typechain";
+// import {ethers} from "ethers";
 
 const { Text, Paragraph } = Typography;
 
@@ -23,11 +23,11 @@ const styles = {
   }
 };
 
-export const QuickStart = ({ isServerInfo }) => {
-  const greeterContract = useMemo(() => {
-    const provider = new ethers.providers.JsonRpcProvider();
-    return Greeter__factory.connect('', provider);
-  }, []);
+export const QuickStart = () => {
+  // const greeterContract = useMemo(() => {
+  //   const provider = new ethers.providers.JsonRpcProvider();
+  //   return Greeter__factory.connect('', provider);
+  // }, []);
 
   const onSubmitHandler = useCallback((values) => {
     console.log(values);

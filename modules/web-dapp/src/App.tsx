@@ -1,8 +1,9 @@
 import React from 'react';
 import Text from "antd/lib/typography/Text";
-import Layout from "antd/es/layout/layout";
+import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QuickStart } from "./components/QuickStart";
+import "./App.css";
 
 const { Header, Footer } = Layout;
 
@@ -16,7 +17,7 @@ const styles = {
         padding: "10px",
     },
     header: {
-        position: "fixed",
+        position: "fixed" as "fixed",
         zIndex: 1,
         width: "100%",
         background: "#fff",
