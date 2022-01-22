@@ -19,7 +19,11 @@ async function main() {
   const Greeter = await ethers.getContractFactory("Greeter");
   const greeter = await Greeter.deploy("Hello, HOMIE!");
 
+  const HomieToken = await ethers.getContractFactory("HomieToken");
+  const homieToken = await HomieToken.deploy();
+
   await greeter.deployed();
+  await homieToken.deployed();
 
   console.log("Greeter deployed to:", greeter.address);
 }
