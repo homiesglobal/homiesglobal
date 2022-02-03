@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QuickStart } from "./components/QuickStart";
 import "./App.css";
 import { Logo } from "./components/Logo";
+import { WalletLoginButton } from "./components/WalletLoginButton";
 
 const { Header, Footer } = Layout;
 
@@ -45,6 +46,7 @@ export const App: React.FC = () => {
       <Router>
         <Header style={styles.header}>
           <Logo />
+          <WalletLoginButton />
         </Header>
         <div style={styles.content}>
           <Switch>
