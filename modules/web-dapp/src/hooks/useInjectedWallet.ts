@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
 import { injected, SupportedChainId } from "../config/connectors";
 import {
@@ -48,6 +48,7 @@ export const useInjectedWallet = ({
 
         trySetupSupportedNetwork(supportedNetwork, onChainSetupError);
       } else {
+        // eslint-disable-next-line no-console
         console.error(e);
       }
     }

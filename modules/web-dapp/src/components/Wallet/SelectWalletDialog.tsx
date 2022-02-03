@@ -29,7 +29,7 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
         content: `Your account is on the wrong network. We will try and add the correct network (${supportedNetwork.chainName} to your wallet.`,
       });
     },
-    onChainSetupError: (supportedNetwork, err) => {
+    onChainSetupError: (supportedNetwork) => {
       const update = {
         title: "Unsupported Chain",
         content: (
