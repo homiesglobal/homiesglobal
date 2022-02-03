@@ -1,14 +1,22 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
+import { Web3ReactProvider } from "@web3-react/core";
+import { providers } from "ethers";
 import { App } from "./App";
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
+const getLibrary = (provider) => {
+  return new providers.Web3Provider(provider);
+};
+
 const Application = () => {
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <App />
-    </div>
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <App />
+      </div>
+    </Web3ReactProvider>
   );
 };
 
