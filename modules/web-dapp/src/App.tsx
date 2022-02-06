@@ -1,13 +1,10 @@
 import React from "react";
-import Text from "antd/lib/typography/Text";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QuickStart } from "./components/QuickStart";
 import "./App.css";
-import { Logo } from "./components/Logo";
-import { WalletLoginButton } from "./components/WalletLoginButton";
-
-const { Header, Footer } = Layout;
+import { Home } from "./page/Home";
+import { Header } from "./components/Header";
 
 const styles = {
   content: {
@@ -44,31 +41,18 @@ export const App: React.FC = () => {
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Router>
-        <Header style={styles.header}>
-          <Logo />
-          <WalletLoginButton />
-        </Header>
+        <Header />
         <div style={styles.content}>
           <Switch>
-            <Route exact path="">
+            <Route exact path="/quickstart">
               <QuickStart />
+            </Route>
+            <Route path="">
+              <Home />
             </Route>
           </Switch>
         </div>
       </Router>
-      <Footer style={{ textAlign: "center" }}>
-        <Text style={{ display: "block" }}>
-          ⭐️ Please star the{" "}
-          <a
-            href="https://github.com/homiesglobal/homiesglobal/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            homiesglobal repository
-          </a>
-          , every star makes us very happy!
-        </Text>
-      </Footer>
     </Layout>
   );
 };

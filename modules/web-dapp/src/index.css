@@ -32,6 +32,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   background-color: white;
+  font-family: "Open Sans";
 }
 
 ul[class],
