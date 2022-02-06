@@ -8,7 +8,6 @@ import { Header } from "./components/Header";
 
 const styles = {
   content: {
-    // display: "flex",
     justifyContent: "center",
     fontFamily: "Roboto, sans-serif",
     color: "#041836",

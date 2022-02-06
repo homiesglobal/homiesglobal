@@ -13,14 +13,14 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     fontFamily: "Open Sans",
-    padding: "0 10px",
+    padding: "5rem 3rem",
   },
   aboutLink: {
     fontFamily: "Open Sans",
     fontStyle: "normal",
     fontWeight: "bold",
-    fontSize: "24px",
-    lineHeight: "38px",
+    fontSize: "2.4rem",
+    lineHeight: "3.8rem",
     color: "#0046AF",
   },
 };
