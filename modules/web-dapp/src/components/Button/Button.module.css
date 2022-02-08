@@ -1,0 +1,9 @@
+.defaultButton {
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    min-height: 64px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 34px;
+}

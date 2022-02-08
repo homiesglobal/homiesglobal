@@ -1,10 +1,12 @@
 import React from "react";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { QuickStart } from "./components/QuickStart";
 import "./App.css";
+import { QuickStart } from "./components/QuickStart";
 import { Home } from "./page/Home";
 import { Header } from "./components/Header";
+import { AppRoute } from "./config/routes";
+import { ConnectWallet } from "./page/ConnectWallet";
 
 const styles = {
   content: {
@@ -30,6 +32,9 @@ export const App: React.FC = () => {
           <Switch>
             <Route exact path="/quickstart">
               <QuickStart />
+            </Route>
+            <Route exact path={AppRoute.ConnectWallet}>
+              <ConnectWallet />
             </Route>
             <Route path="">
               <Home />

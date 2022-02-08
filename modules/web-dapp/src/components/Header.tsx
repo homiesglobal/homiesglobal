@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout, Typography } from "antd";
-import { Logo } from "./Logo";
+import { Logo } from "./Icons/Logo";
+import { AppRoute } from "../config/routes";
 
 const { Header: LayoutHeader } = Layout;
 const { Link } = Typography;
@@ -28,7 +29,9 @@ const styles = {
 export const Header: React.FC = () => {
   return (
     <LayoutHeader style={styles.header}>
-      <Logo />
+      <Link href={AppRoute.Home}>
+        <Logo />
+      </Link>
       <Link
         href={
           "https://getjamtech.notion.site/HOMIE-Token-and-Airdrop-App-Project-Planning-3b1a1557f5cf46a6a0d9c689c361cea7"
