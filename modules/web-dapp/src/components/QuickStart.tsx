@@ -1,6 +1,7 @@
 import { Card, Input, Button, Typography, Row, Col, Form, Spin } from "antd";
 import React, { useCallback } from "react";
 import { useGreeterContract } from "../hooks/useGreeterContract";
+import { WalletLoginButton } from "./WalletLoginButton";
 
 const { Text, Paragraph } = Typography;
 
@@ -92,6 +93,7 @@ export const QuickStart: React.FC = () => {
                 </Input.Group>
               </Form>
             </Card>
+            <WalletLoginButton />
           </div>
         </Col>
       </Row>

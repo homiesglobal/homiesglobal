@@ -1,23 +1,18 @@
 import React from "react";
-import { Button, Col, Modal, Row, Typography } from "antd";
-import MetaMaskIcon from "../../assets/metamask-icon.svg";
+import { Col, Modal, Row } from "antd";
+import Icon from "@ant-design/icons";
 import { useInjectedWallet } from "../../hooks/useInjectedWallet";
 import { InjectectedWalletSetupError } from "./InjectedWalletSetupError";
-
-const styles = {
-  walletSection: {
-    margin: "2rem 0",
-  },
-  walletIcon: {
-    width: "1rem",
-    height: "1rem",
-    margin: "1 1 0 0",
-  },
-};
+import styles from "./SelectWalletDialog.module.css";
+import { Button } from "../Button/Button";
+import { WalletIcon } from "../Icons/WalletIcon";
+import { MetamaskIcon } from "../Icons/MetamaskIcon";
+import { WalletConnectIcon } from "../Icons/WalletConnectIcon";
+import { CloseIcon } from "../Icons/CloseIcon";
 
 interface Props {
   visible: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
@@ -44,36 +39,42 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
 
   return (
     <Modal
-      title={<>Select a Wallet</>}
+      title={
+        <>
+          <WalletIcon /> Select a Wallet
+        </>
+      }
       centered
       visible={visible}
       onCancel={onClose}
+      closeIcon={<Icon component={CloseIcon} />}
+      maskClosable={false}
+      mask={false}
       footer={null}
     >
       <Row>
         <Col>
-          <Typography>Please connect a wallet to this dApp</Typography>
+          <p className={styles.instruction}>
+            Please connect a wallet to this dapp
+          </p>
         </Col>
       </Row>
-      <Row style={styles.walletSection}>
-        <Col span={12}>
-          <Button onClick={onInjectedWalletClicked}>
-            <Row align="middle">
-              <Col span={4}>
-                <img
-                  style={styles.walletIcon}
-                  src={MetaMaskIcon}
-                  title={"Metamask Icon"}
-                />{" "}
-              </Col>
-              <Col span={5} offset={1}>
-                Metamask
-              </Col>
-            </Row>
+      <Row gutter={[8, 16]} className={styles.walletSection}>
+        <Col md={{ span: 12 }} sm={{ span: 24 }}>
+          <Button
+            icon={<Icon component={MetamaskIcon} />}
+            onClick={onInjectedWalletClicked}
+          >
+            Metamask
           </Button>
         </Col>
-        <Col span={12}>
-          <Button>WalletConnect TBD</Button>
+        <Col md={{ span: 12 }} sm={{ span: 24 }}>
+          <Button
+            icon={<Icon component={WalletConnectIcon} />}
+            onClick={() => Modal.info({ content: "Not implemented yet" })}
+          >
+            WalletConnect
+          </Button>
         </Col>
       </Row>
     </Modal>

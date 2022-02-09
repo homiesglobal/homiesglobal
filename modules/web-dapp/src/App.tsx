@@ -1,74 +1,47 @@
 import React from "react";
-import Text from "antd/lib/typography/Text";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { QuickStart } from "./components/QuickStart";
 import "./App.css";
-import { Logo } from "./components/Logo";
-import { WalletLoginButton } from "./components/WalletLoginButton";
-
-const { Header, Footer } = Layout;
+import { QuickStart } from "./components/QuickStart";
+import { Home } from "./page/Home";
+import { Header } from "./components/Header";
+import { AppRoute } from "./config/routes";
+import { ConnectWallet } from "./page/ConnectWallet";
 
 const styles = {
   content: {
-    // display: "flex",
     justifyContent: "center",
     fontFamily: "Roboto, sans-serif",
     color: "#041836",
     marginTop: "130px",
     padding: "10px",
   },
-  header: {
-    position: "fixed" as const,
-    zIndex: 1,
-    width: "100%",
-    background: "#fff",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontFamily: "Roboto, sans-serif",
-    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
-    padding: "0 10px",
-    boxShadow: "0 1px 10px rgb(151 164 175 / 10%)",
-  },
-  headerRight: {
-    display: "flex",
-    gap: "20px",
-    alignItems: "center",
-    fontSize: "15px",
-    fontWeight: "600",
+  layout: {
+    height: "100vh",
+    overflow: "auto",
+    background: "linear-gradient(180deg, #D5F2F2 0%, #0B52B4 100%)",
   },
 };
 
 export const App: React.FC = () => {
   return (
-    <Layout style={{ height: "100vh", overflow: "auto" }}>
+    <Layout style={styles.layout}>
       <Router>
-        <Header style={styles.header}>
-          <Logo />
-          <WalletLoginButton />
-        </Header>
+        <Header />
         <div style={styles.content}>
           <Switch>
-            <Route exact path="">
+            <Route exact path="/quickstart">
               <QuickStart />
+            </Route>
+            <Route exact path={AppRoute.ConnectWallet}>
+              <ConnectWallet />
+            </Route>
+            <Route path="">
+              <Home />
             </Route>
           </Switch>
         </div>
       </Router>
-      <Footer style={{ textAlign: "center" }}>
-        <Text style={{ display: "block" }}>
-          ⭐️ Please star the{" "}
-          <a
-            href="https://github.com/homiesglobal/homiesglobal/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            homiesglobal repository
-          </a>
-          , every star makes us very happy!
-        </Text>
-      </Footer>
     </Layout>
   );
 };

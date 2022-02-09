@@ -26,12 +26,17 @@ dd {
   margin: 0;
 }
 
+html {
+  font-size: 10px;
+}
+
 body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   background-color: white;
+  font-family: "Open Sans";
 }
 
 ul[class],
