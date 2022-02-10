@@ -13,7 +13,7 @@ export interface NetworkParams {
 
 export const BscMainnetParams: NetworkParams = {
   chainId: 56,
-  chainName: "Binance Smart Chain Mainnet",
+  chainName: "Binance Smart Chain",
   nativeCurrency: {
     name: "Binance Coin",
     symbol: "BNB",

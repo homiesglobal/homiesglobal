@@ -47,7 +47,7 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
       onWrongChainId: (supportedNetwork) => {
         unsupportedNetworkModal = Modal.warn({
           title: "Unsupported Chain",
-          content: `Your account is on the wrong network. This dapp requires connection to (${supportedNetwork.chainName} account.`,
+          content: `Your account is on the wrong network. This dapp requires a (${supportedNetwork.chainName} account.`,
         });
       },
     }
