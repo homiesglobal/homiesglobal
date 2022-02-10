@@ -47,7 +47,7 @@ export const LocalNetworkParams: NetworkParams = {
 
 export const NetworkByChainId = {
   [BscMainnetParams.chainId]: BscMainnetParams,
-  [BscTestnetParams.chainId]: LocalNetworkParams,
+  [BscTestnetParams.chainId]: BscTestnetParams,
   [LocalNetworkParams.chainId]: LocalNetworkParams,
 };
 

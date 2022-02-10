@@ -1,27 +1,29 @@
 import { useCallback } from "react";
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
-import { injected, SupportedChainId } from "../config/connectors";
+import { AbstractConnector } from "@web3-react/abstract-connector";
+import { SupportedChainId } from "../config/connectors";
 import {
   NetworkByChainId,
   NetworkParams,
   networkToWalletAddChainParams,
 } from "../config/networks";
 
-interface UseInjectedWallet {
-  onInjectedWalletClicked: () => void;
+interface UseConnectWallet {
+  onConnectToWallet: () => void;
   walletConnected: boolean;
 }
 
 interface Params {
   onWrongChainId: (supportedNetwork: NetworkParams) => void;
-  onChainSetupError: (supportedNetwork: NetworkParams, error: Error) => void;
+  onChainSetupError?: (supportedNetwork: NetworkParams, error: Error) => void;
 }
 
 const trySetupSupportedNetwork = (
+  connector: AbstractConnector,
   supportedNetwork: NetworkParams,
   onChainSetupError: (net: NetworkParams, error: Error) => void
 ) => {
-  injected.getProvider().then((provider) => {
+  connector.getProvider().then((provider) => {
     provider
       .request({
         method: "wallet_addEthereumChain",
@@ -33,29 +35,35 @@ const trySetupSupportedNetwork = (
   });
 };
 
-export const useInjectedWallet = ({
-  onWrongChainId,
-  onChainSetupError,
-}: Params): UseInjectedWallet => {
+export const useConnectWallet = (
+  connector: AbstractConnector,
+  { onWrongChainId, onChainSetupError }: Params
+): UseConnectWallet => {
   const { activate, active } = useWeb3React();
-  const onInjectedWalletClicked = useCallback(async () => {
+  const onConnectToWallet = useCallback(async () => {
     try {
-      await activate(injected, null, true);
+      await activate(connector, null, true);
     } catch (e) {
       if (e instanceof UnsupportedChainIdError) {
         const supportedNetwork = NetworkByChainId[SupportedChainId];
         onWrongChainId(supportedNetwork);
 
-        trySetupSupportedNetwork(supportedNetwork, onChainSetupError);
+        if (onChainSetupError) {
+          trySetupSupportedNetwork(
+            connector,
+            supportedNetwork,
+            onChainSetupError
+          );
+        }
       } else {
         // eslint-disable-next-line no-console
         console.error(e);
       }
     }
-  }, [activate, injected]);
+  }, [activate, connector]);
 
   return {
-    onInjectedWalletClicked,
+    onConnectToWallet,
     walletConnected: active,
   };
 };
