@@ -3,14 +3,14 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract AirDrop_ {
+contract AirDrop {
     mapping (address=>bool) allowed;
     mapping (address=>bool) claims;
-    address admin;
+    address public admin;
     uint256 amountToBeClaimed;
 
     modifier onlyAdmin() {
-        require(msg.sender == admin);
+        require(msg.sender == admin, "only admin can call function");
         _;
     }
 
@@ -21,6 +21,7 @@ contract AirDrop_ {
 
     constructor(address _tokenAddress) {
         homieToken = IERC20(_tokenAddress);
+        admin == msg.sender;
     }
 
     function AddRecipient(address recipient) public onlyAdmin {
@@ -28,7 +29,7 @@ contract AirDrop_ {
         emit recipientAdded(recipient, "recipient added");
     }
 
-    function setAmountToBeClaimed(uint256 amount) public onlyAdmin {
+    function setAmountToBeClaimed(uint256 amount) external onlyAdmin {
         amountToBeClaimed = amount;
     }
 

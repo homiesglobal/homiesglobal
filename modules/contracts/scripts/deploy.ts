@@ -22,10 +22,16 @@ async function main() {
   const HomieToken = await ethers.getContractFactory("HomieToken");
   const homieToken = await HomieToken.deploy();
 
+  const Airdrop = await ethers.getContractFactory("AirDrop");
+  const airdrop = await Airdrop.deploy(homieToken.address);
+
   await greeter.deployed();
   await homieToken.deployed();
+  await airdrop.deployed();
 
   console.log("Greeter deployed to:", greeter.address);
+  console.log("HomieToken deployed to:", homieToken.address);
+  console.log("Airdrop deployed to:", airdrop.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
