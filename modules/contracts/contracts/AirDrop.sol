@@ -5,51 +5,42 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "hardhat/console.sol";
 
 contract AirDrop {
-    mapping (address=>bool) public allowed;
-    mapping (address=>bool) claims;
+    mapping(address => bool) public allowed;
+    mapping(address => bool) claims;
     address public admin;
     uint256 public amountToBeClaimed;
 
     modifier onlyOwner() {
-        console.log("msg.sender from modifier:::::", msg.sender);
         require(msg.sender == admin, "only admin can call function");
         _;
     }
 
-    event tokenClaimed(address indexed recipient, string message);
-    event recipientAdded(address recipient, string message);
+    event TokenClaimed(address indexed recipient);
+    event RecipientAdded(address recipient);
 
     IERC20 homieToken;
 
-    constructor(address _tokenAddress) {
+    constructor(address _tokenAddress, uint256 _amountToBeClaimed) {
         homieToken = IERC20(_tokenAddress);
+        amountToBeClaimed = _amountToBeClaimed;
         admin = msg.sender;
     }
 
-    function AddRecipient(address recipient) public onlyOwner {
+    function addRecipient(address recipient) public onlyOwner {
         allowed[recipient] = true;
-        emit recipientAdded(recipient, "recipient added");
+        emit RecipientAdded(recipient);
     }
 
-    function getAmountToBeClaimed() external view returns (uint256) {
-        console.log(msg.sender);
-        console.log("admin::::", admin);
-        require(msg.sender == admin, "msg.sender is not equal admin");
-        return amountToBeClaimed;
-    }
-
-    function setAmountToBeClaimed(uint256 amount) public onlyOwner {
-        amountToBeClaimed = amount;
-    }
-
-    function ClaimToken(address recipient) public payable {
-        require(allowed[recipient], "only allowed address");
-        require(!claims[recipient], "tokens have been claimed");
+    function claimToken() public payable {
+        require(allowed[msg.sender], "only allowed address");
+        require(!claims[msg.sender], "tokens have been claimed");
         // this prevents recipient from claiming token more than once
-        allowed[recipient] = true;
-        claims[recipient] = true;
-        homieToken.transferFrom(msg.sender, recipient, amountToBeClaimed);
-        emit tokenClaimed(recipient, "claimed token");
+        allowed[msg.sender] = true;
+        claims[msg.sender] = true;
+        uint256 airdropBalance = homieToken.balanceOf(address(this));
+        homieToken.allowance(address(this), msg.sender);
+        homieToken.approve(address(this), airdropBalance);
+        homieToken.transferFrom(address(this), msg.sender, amountToBeClaimed);
+        emit TokenClaimed(msg.sender);
     }
-
 }
