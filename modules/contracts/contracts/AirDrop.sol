@@ -16,7 +16,7 @@ contract AirDrop {
     }
 
     event TokenClaimed(address indexed recipient);
-    event RecipientAdded(address recipient);
+    event RecipientAdded(address indexed recipient);
 
     IERC20 homieToken;
 
