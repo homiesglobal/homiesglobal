@@ -11,8 +11,8 @@ describe.only("Airdrop contract", async function () {
     [addr1, addr3] = await ethers.getSigners();
   });
 
-  // only admin should add user
-  it("Should able to claim token", async function () {
+  // only admin should add recipient
+  it("Should able to add recipient", async function () {
     const amount = BigNumber.from(2000);
     const HomieToken = await ethers.getContractFactory("HomieToken");
     const homieToken = await HomieToken.deploy();
@@ -33,7 +33,7 @@ describe.only("Airdrop contract", async function () {
   });
 
   // should not claim token more than once
-  it.only("should not claim token more than once", async function () {
+  it("should not claim token more than once", async function () {
     const amount = BigNumber.from(2000);
     const HomieToken = await ethers.getContractFactory("HomieToken");
     const homieToken = await HomieToken.deploy();

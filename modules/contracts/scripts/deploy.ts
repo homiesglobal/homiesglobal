@@ -3,6 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
+import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
 
 async function main() {
@@ -22,12 +23,22 @@ async function main() {
   const HomieToken = await ethers.getContractFactory("HomieToken");
   const homieToken = await HomieToken.deploy();
 
-  const Airdrop = await ethers.getContractFactory("AirDrop");
-  const airdrop = await Airdrop.deploy(homieToken.address);
-
   await greeter.deployed();
   await homieToken.deployed();
+
+  const Airdrop = await ethers.getContractFactory("AirDrop");
+
+  // cannot remember the actual amount to be claimed
+  // we're 39 on the homies group so...
+  const airdrop = await Airdrop.deploy(
+    homieToken.address,
+    BigNumber.from(39000000)
+  );
+
   await airdrop.deployed();
+  // transfer to airdrop address on deployment
+  // total supplyof token is 50000000
+  homieToken.transfer(airdrop.address, BigNumber.from(40000000));
 
   console.log("Greeter deployed to:", greeter.address);
   console.log("HomieToken deployed to:", homieToken.address);
