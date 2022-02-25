@@ -32,13 +32,13 @@ async function main() {
   // we're 39 on the homies group so...
   const airdrop = await Airdrop.deploy(
     homieToken.address,
-    BigNumber.from(39000000)
+    BigNumber.from(500000)
   );
 
   await airdrop.deployed();
   // transfer to airdrop address on deployment
   // total supplyof token is 50000000
-  homieToken.transfer(airdrop.address, BigNumber.from(40000000));
+  homieToken.transfer(airdrop.address, BigNumber.from(25000000));
 
   console.log("Greeter deployed to:", greeter.address);
   console.log("HomieToken deployed to:", homieToken.address);
