@@ -1,10 +1,10 @@
 import React from "react";
 import { Col, Modal, Row } from "antd";
 import Icon from "@ant-design/icons";
+import { Button } from "@mui/material";
 import { useConnectWallet } from "../../hooks/useConnectWallet";
 import { InjectectedWalletSetupError } from "./InjectedWalletSetupError";
 import styles from "./SelectWalletDialog.module.css";
-import { Button } from "../Button/Button";
 import { WalletIcon } from "../Icons/WalletIcon";
 import { MetamaskIcon } from "../Icons/MetamaskIcon";
 import { WalletConnectIcon } from "../Icons/WalletConnectIcon";
@@ -78,7 +78,7 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
       <Row gutter={[8, 16]} className={styles.walletSection}>
         <Col md={{ span: 12 }} sm={{ span: 24 }}>
           <Button
-            icon={<Icon component={MetamaskIcon} />}
+            startIcon={<Icon component={MetamaskIcon} />}
             onClick={onInjectedWalletClicked}
           >
             Metamask
@@ -86,7 +86,7 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
         </Col>
         <Col md={{ span: 12 }} sm={{ span: 24 }}>
           <Button
-            icon={<Icon component={WalletConnectIcon} />}
+            startIcon={<Icon component={WalletConnectIcon} />}
             onClick={onWalletConnectClicked}
           >
             WalletConnect

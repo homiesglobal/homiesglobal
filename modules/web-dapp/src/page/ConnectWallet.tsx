@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Row, Col, Modal } from "antd";
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
-import styles from "./Home.module.css";
 import { SelectWalletDialog } from "../components/Wallet/SelectWalletDialog";
 import { AppRoute } from "../config/routes";
 
@@ -22,7 +21,7 @@ export const ConnectWallet: React.FC = () => {
 
   return (
     <Row justify="center">
-      <Col sm={{ span: 24 }} md={{ span: 12 }} className={styles.content}>
+      <Col sm={{ span: 24 }} md={{ span: 12 }}>
         <SelectWalletDialog
           visible={true}
           onClose={() => {
