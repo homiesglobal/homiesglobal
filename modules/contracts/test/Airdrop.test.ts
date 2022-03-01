@@ -51,6 +51,6 @@ describe.only("Airdrop contract", async function () {
     await expect(airdrop.connect(addr1).claimToken()).to.be.revertedWith(
       "tokens have been claimed"
     );
-     expect(await homieToken.balanceOf(addr1.address)).to.equal(amount)
+    expect(await homieToken.balanceOf(addr1.address)).to.equal(amount);
   });
 });
