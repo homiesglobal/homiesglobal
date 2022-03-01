@@ -6,7 +6,7 @@ import "hardhat/console.sol";
 
 contract AirDrop {
     mapping(address => bool) public allowed;
-    mapping(address => bool) claims;
+    mapping(address => bool) public claims;
     address public admin;
     uint256 public amountToBeClaimed;
 
@@ -18,7 +18,7 @@ contract AirDrop {
     event TokenClaimed(address indexed recipient);
     event RecipientAdded(address indexed recipient);
 
-    IERC20 homieToken;
+    IERC20 private homieToken;
 
     constructor(address _tokenAddress, uint256 _amountToBeClaimed) {
         homieToken = IERC20(_tokenAddress);
@@ -31,16 +31,19 @@ contract AirDrop {
         emit RecipientAdded(recipient);
     }
 
-    function claimToken() public payable {
+    function claimToken() public {
         require(allowed[msg.sender], "only allowed address");
         require(!claims[msg.sender], "tokens have been claimed");
         // this prevents recipient from claiming token more than once
-        allowed[msg.sender] = true;
-        claims[msg.sender] = true;
+
         uint256 airdropBalance = homieToken.balanceOf(address(this));
-        homieToken.allowance(address(this), msg.sender);
-        homieToken.approve(address(this), airdropBalance);
-        homieToken.transferFrom(address(this), msg.sender, amountToBeClaimed);
+        require(airdropBalance >= amountToBeClaimed, "airdrop balance low");
+        claims[msg.sender] = true;
+
+        require(
+            homieToken.transfer(msg.sender, amountToBeClaimed),
+            "airdrop transfer failed"
+        );
         emit TokenClaimed(msg.sender);
     }
 }
