@@ -3,6 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
+import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
 
 async function main() {
@@ -25,7 +26,19 @@ async function main() {
   await greeter.deployed();
   await homieToken.deployed();
 
+  const Airdrop = await ethers.getContractFactory("AirDrop");
+
+  const airdrop = await Airdrop.deploy(
+    homieToken.address,
+    BigNumber.from(500000)
+  );
+
+  await airdrop.deployed();
+  homieToken.transfer(airdrop.address, BigNumber.from(25000000));
+
   console.log("Greeter deployed to:", greeter.address);
+  console.log("HomieToken deployed to:", homieToken.address);
+  console.log("Airdrop deployed to:", airdrop.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
