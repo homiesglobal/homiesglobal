@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid, styled, Typography } from "@mui/material";
+import { useWeb3React } from "@web3-react/core";
+import { Button, Grid, styled, Typography, useTheme } from "@mui/material";
 import { Logo } from "../components/Icons/Logo";
 import { AppRoute } from "../config/routes";
 
 const ConnectButton = styled(Button)(({ theme }) => ({
   color: "#0046AF",
   background: theme.palette.common.white,
+  fontWeight: 700,
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -25,8 +27,10 @@ const Subtitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const Home: React.FC = () => {
+  const theme = useTheme();
+  const { active } = useWeb3React();
   return (
-    <Grid container sx={{ textAlign: "center" }}>
+    <Grid container sx={{ textAlign: "center", paddingTop: theme.spacing(13) }}>
       <Grid item xs={0} md={3} />
       <Grid item xs={12} md={6}>
         <Logo />
@@ -35,8 +39,10 @@ export const Home: React.FC = () => {
           With the launch of HOMIE and the DAO, the community will be empowered
           to govern the Homie Token
         </Subtitle>
-        <Link to={AppRoute.ConnectWallet}>
-          <ConnectButton>Connect Wallet</ConnectButton>
+        <Link to={active ? AppRoute.ClaimTokens : AppRoute.ConnectWallet}>
+          <ConnectButton>
+            {active ? "Get Started" : "Connect Wallet"}
+          </ConnectButton>
         </Link>
       </Grid>
     </Grid>

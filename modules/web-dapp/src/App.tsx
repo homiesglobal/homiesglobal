@@ -3,20 +3,18 @@ import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ClaimPage } from "./page/ClaimPage";
 import { theme } from "./config/theme";
 import { QuickStart } from "./components/QuickStart";
 import { Home } from "./page/Home";
 import { Header } from "./components/Header";
 import { AppRoute } from "./config/routes";
 import { ConnectWallet } from "./page/ConnectWallet";
+import { LoggedInModal } from "./components/Layout/LoggedInModal";
 
 const styles = {
   content: {
     justifyContent: "center",
-    fontFamily: "Roboto, sans-serif",
-    color: "#041836",
-    marginTop: "130px",
-    padding: "10px",
   },
   layout: {
     height: "100vh",
@@ -32,13 +30,20 @@ export const App: React.FC = () => {
       <Layout style={styles.layout}>
         <Router>
           <Header />
-          <div style={styles.content}>
+          <div className="body-layout" style={styles.content}>
             <Switch>
               <Route exact path="/quickstart">
                 <QuickStart />
               </Route>
               <Route exact path={AppRoute.ConnectWallet}>
                 <ConnectWallet />
+              </Route>
+              <Route path={AppRoute.LoggedIn}>
+                <LoggedInModal>
+                  <Route exact path={AppRoute.ClaimTokens}>
+                    <ClaimPage />
+                  </Route>
+                </LoggedInModal>
               </Route>
               <Route path="">
                 <Home />

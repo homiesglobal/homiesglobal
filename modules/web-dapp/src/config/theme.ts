@@ -29,7 +29,7 @@ export const theme = responsiveFontSizes(
             // minHeight: "64px",
             fontSize: "20px",
             // lineHeight: "34px",
-            fontWeight: "bold",
+            fontWeight: 400,
             textTransform: "none",
           },
         },
