@@ -26,11 +26,16 @@ export const theme = responsiveFontSizes(
         styleOverrides: {
           root: {
             borderRadius: "1.5rem",
-            // minHeight: "64px",
             fontSize: "20px",
-            // lineHeight: "34px",
             fontWeight: 400,
             textTransform: "none",
+          },
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            borderRadius: "12px",
           },
         },
       },

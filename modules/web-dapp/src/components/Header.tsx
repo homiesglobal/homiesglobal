@@ -1,10 +1,7 @@
 import React from "react";
-import { Layout, Typography } from "antd";
+import { Link, styled } from "@mui/material";
 import { Logo } from "./Icons/Logo";
 import { AppRoute } from "../config/routes";
-
-const { Header: LayoutHeader } = Layout;
-const { Link } = Typography;
 
 const styles = {
   header: {
@@ -13,34 +10,31 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    fontFamily: "Open Sans",
-    padding: "5rem 3rem",
-  },
-  aboutLink: {
-    fontFamily: "Open Sans",
-    fontStyle: "normal",
-    fontWeight: "bold",
-    fontSize: "2.4rem",
-    lineHeight: "3.8rem",
-    color: "#0046AF",
+    padding: "4rem 3rem",
   },
 };
 
+const AboutLink = styled(Link)(({ theme }) => ({
+  fontWeight: 700,
+  fontSize: theme.spacing(2.4),
+  lineHeight: theme.spacing(3),
+}));
+
 export const Header: React.FC = () => {
   return (
-    <LayoutHeader style={styles.header}>
-      <Link href={AppRoute.Home}>
+    <div style={styles.header}>
+      <Link href={AppRoute.Home} underline="none">
         <Logo />
       </Link>
-      <Link
+      <AboutLink
         href={
           "https://getjamtech.notion.site/HOMIE-Token-and-Airdrop-App-Project-Planning-3b1a1557f5cf46a6a0d9c689c361cea7"
         }
         target="_blank"
-        style={styles.aboutLink}
+        underline="none"
       >
         About Homie
-      </Link>
-    </LayoutHeader>
+      </AboutLink>
+    </div>
   );
 };

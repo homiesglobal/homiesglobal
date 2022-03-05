@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Row, Col } from "antd";
 import { useHistory } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import { SelectWalletDialog } from "../components/Wallet/SelectWalletDialog";
@@ -17,15 +16,11 @@ export const ConnectWallet: React.FC = () => {
   }, [active]);
 
   return (
-    <Row justify="center">
-      <Col sm={{ span: 24 }} md={{ span: 12 }}>
-        <SelectWalletDialog
-          visible={true}
-          onClose={() => {
-            history.replace(AppRoute.Home);
-          }}
-        />
-      </Col>
-    </Row>
+    <SelectWalletDialog
+      visible={true}
+      onClose={() => {
+        history.replace(AppRoute.Home);
+      }}
+    />
   );
 };

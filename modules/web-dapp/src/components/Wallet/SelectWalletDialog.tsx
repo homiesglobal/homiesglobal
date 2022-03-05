@@ -1,10 +1,18 @@
 import React from "react";
-import { Col, Modal, Row } from "antd";
-import Icon from "@ant-design/icons";
-import { Button, styled } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Stack,
+  styled,
+  Typography,
+} from "@mui/material";
+import { useConfirm } from "material-ui-confirm";
 import { useConnectWallet } from "../../hooks/useConnectWallet";
 import { InjectectedWalletSetupError } from "./InjectedWalletSetupError";
-import styles from "./SelectWalletDialog.module.css";
 import { WalletIcon } from "../Icons/WalletIcon";
 import { MetamaskIcon } from "../Icons/MetamaskIcon";
 import { WalletConnectIcon } from "../Icons/WalletConnectIcon";
@@ -15,20 +23,29 @@ const WalletButton = styled(Button)({
   fontWeight: 700,
 });
 
+const Instruction = styled(Typography)(({ theme }) => ({
+  fontSize: theme.spacing(2),
+}));
+
+const Title = styled(Typography)(({ theme }) => ({
+  fontSize: theme.spacing(1.8),
+  fontWeight: 600,
+}));
+
 interface Props {
   visible: boolean;
   onClose?: () => void;
 }
 
 export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
-  let unsupportedNetworkModal;
+  const confirmModal = useConfirm();
   const { onConnectToWallet: onInjectedWalletClicked } = useConnectWallet(
     injected,
     {
       onWrongChainId: (supportedNetwork) => {
-        unsupportedNetworkModal = Modal.warn({
+        confirmModal({
           title: "Unsupported Chain",
-          content: `Your account is on the wrong network. We will try and add the correct network (${supportedNetwork.chainName} to your wallet.`,
+          content: `Your account is on the wrong network. Will try and add the correct network (${supportedNetwork.chainName} to your wallet.`,
         });
       },
       onChainSetupError: (supportedNetwork) => {
@@ -40,7 +57,7 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
             </>
           ),
         };
-        unsupportedNetworkModal.update(update);
+        confirmModal(update);
       },
     }
   );
@@ -49,7 +66,7 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
     walletConnect,
     {
       onWrongChainId: (supportedNetwork) => {
-        unsupportedNetworkModal = Modal.warn({
+        confirmModal({
           title: "Unsupported Chain",
           content: `Your account is on the wrong network. This dapp requires a (${supportedNetwork.chainName} account.`,
         });
@@ -58,45 +75,44 @@ export const SelectWalletDialog: React.FC<Props> = ({ visible, onClose }) => {
   );
 
   return (
-    <Modal
-      title={
-        <>
-          <WalletIcon /> Select a Wallet
-        </>
-      }
-      centered
-      visible={visible}
-      onCancel={onClose}
-      closeIcon={<Icon component={CloseIcon} />}
-      maskClosable={false}
-      mask={false}
-      footer={null}
-    >
-      <Row>
-        <Col>
-          <p className={styles.instruction}>
-            Please connect a wallet to this dapp
-          </p>
-        </Col>
-      </Row>
-      <Row gutter={[8, 16]} className={styles.walletSection}>
-        <Col md={{ span: 12 }} sm={{ span: 24 }}>
-          <WalletButton
-            startIcon={<Icon component={MetamaskIcon} />}
-            onClick={onInjectedWalletClicked}
-          >
-            Metamask
-          </WalletButton>
-        </Col>
-        <Col md={{ span: 12 }} sm={{ span: 24 }}>
-          <WalletButton
-            startIcon={<Icon component={WalletConnectIcon} />}
-            onClick={onWalletConnectClicked}
-          >
-            WalletConnect
-          </WalletButton>
-        </Col>
-      </Row>
-    </Modal>
+    <Dialog open={visible} onClose={onClose}>
+      <DialogTitle>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Title>
+            <WalletIcon /> Select a Wallet
+          </Title>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Stack>
+      </DialogTitle>
+      <DialogContent sx={{ marginY: "35px" }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Instruction>Please connect a wallet to this dapp</Instruction>
+          </Grid>
+          <Grid item md={6} sm={12}>
+            <WalletButton
+              startIcon={<MetamaskIcon />}
+              onClick={onInjectedWalletClicked}
+            >
+              Metamask
+            </WalletButton>
+          </Grid>
+          <Grid item md={6} sm={12}>
+            <WalletButton
+              startIcon={<WalletConnectIcon />}
+              onClick={onWalletConnectClicked}
+            >
+              WalletConnect
+            </WalletButton>
+          </Grid>
+        </Grid>
+      </DialogContent>
+    </Dialog>
   );
 };

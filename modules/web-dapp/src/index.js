@@ -2,6 +2,7 @@ import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import { Web3ReactProvider } from "@web3-react/core";
 import { providers } from "ethers";
+import { ConfirmProvider } from "material-ui-confirm";
 import { App } from "./App";
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -13,9 +14,13 @@ const getLibrary = (provider) => {
 const Application = () => {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <ConfirmProvider
+        defaultOptions={{
+          cancellationButtonProps: { sx: { display: "none" } },
+        }}
+      >
         <App />
-      </div>
+      </ConfirmProvider>
     </Web3ReactProvider>
   );
 };
@@ -29,5 +34,7 @@ ReactDOM.render(
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.register();
