@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { ClaimPage } from "./page/ClaimPage";
 import { theme } from "./config/theme";
 import { Home } from "./page/Home";
@@ -20,7 +20,6 @@ const styles = {
 export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
       <div style={styles.background}>
         <Router>
           <Header />

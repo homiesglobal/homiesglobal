@@ -24,6 +24,8 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
     "react/prop-types": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "import/extensions": [
       "error",
       "ignorePackages",
