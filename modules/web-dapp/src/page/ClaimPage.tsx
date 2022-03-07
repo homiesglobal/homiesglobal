@@ -6,9 +6,10 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { AppRoute } from "../config/routes";
+import { ClaimPageState, useClaimPage } from "../hooks/useClaimPage";
 
 // CenterGrid is a styled mui Grid that centers aligns its
 // children center. Useful in this page components.
@@ -59,6 +60,7 @@ const Eligible: React.FC = () => {
         <Message>You are eligible for this airdrop.</Message>
       </Grid>
       <Grid item xs={12}>
+        {/* eslint-disable-next-line no-console */}
         <Button onClick={() => console.log}>Continue to Airdrop</Button>
       </Grid>
     </CenterGrid>
@@ -97,17 +99,8 @@ const TokenClaimed: React.FC<TokenClaimedProps> = ({
   );
 };
 
-enum ClaimPageState {
-  LoadingState,
-  NotEligibleState,
-  EligibleState,
-  TokenClaimedState,
-}
-
 export const ClaimPage: React.FC = () => {
-  const [currentState, setCurrentState] = useState<ClaimPageState>(
-    ClaimPageState.TokenClaimedState
-  );
+  const { currentState } = useClaimPage();
 
   switch (currentState) {
     case ClaimPageState.LoadingState:
