@@ -10,6 +10,9 @@ export enum ClaimPageState {
 
 interface UseClaimPage {
   currentState: ClaimPageState;
+  amountToBeClaimed?: number;
+  tokenSymbol?: string;
+  tokenDecimals?: number;
   error?: string;
 }
 
@@ -37,5 +40,8 @@ export const useClaimPage = (): UseClaimPage => {
   return {
     currentState,
     error: airdrop.error,
+    amountToBeClaimed: airdrop.amountToBeClaimed,
+    tokenSymbol: "HOMIE", // hardcoding this, but ideally should be fetched from contract
+    tokenDecimals: 2, // same with this
   };
 };

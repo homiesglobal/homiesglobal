@@ -7,6 +7,7 @@ interface UseAirdropContract {
   error?: string;
   isWhitelisted?: boolean;
   isClaimed?: boolean;
+  amountToBeClaimed?: number;
 }
 
 /**
@@ -17,8 +18,11 @@ interface UseAirdropContract {
  */
 export const useAirdropContract = (): UseAirdropContract => {
   const { library, account } = useWeb3React();
-  const [isWhitelisted, setIsWhitelisted] = useState();
-  const [isClaimed, setIsClaimed] = useState();
+  const [isWhitelisted, setIsWhitelisted] = useState<boolean | undefined>();
+  const [isClaimed, setIsClaimed] = useState<boolean | undefined>();
+  const [amountToBeClaimed, setAmountToBeClaimed] = useState<
+    number | undefined
+  >();
   const [error, setError] = useState<string | undefined>();
 
   // useMemo to ensure we only initialize Contract once
@@ -42,9 +46,14 @@ export const useAirdropContract = (): UseAirdropContract => {
       return;
     }
 
-    airdropContract
-      .claims(account)
-      .then((claimed) => setIsClaimed(claimed))
+    Promise.all([
+      airdropContract.claims(account),
+      airdropContract.amountToBeClaimed(),
+    ])
+      .then(([claimed, amount]) => {
+        setIsClaimed(claimed);
+        setAmountToBeClaimed(amount);
+      })
       .catch((err) => setError(`Error checking claimed status: ${err}`));
   }, [isWhitelisted]);
 
@@ -52,5 +61,6 @@ export const useAirdropContract = (): UseAirdropContract => {
     error,
     isWhitelisted,
     isClaimed,
+    amountToBeClaimed,
   };
 };

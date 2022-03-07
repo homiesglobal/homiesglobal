@@ -10,6 +10,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { AppRoute } from "../config/routes";
 import { ClaimPageState, useClaimPage } from "../hooks/useClaimPage";
+import { tokenValue } from "../helpers/formatters";
 
 // CenterGrid is a styled mui Grid that centers aligns its
 // children center. Useful in this page components.
@@ -100,7 +101,8 @@ const TokenClaimed: React.FC<TokenClaimedProps> = ({
 };
 
 export const ClaimPage: React.FC = () => {
-  const { currentState } = useClaimPage();
+  const { currentState, amountToBeClaimed, tokenSymbol, tokenDecimals } =
+    useClaimPage();
 
   switch (currentState) {
     case ClaimPageState.LoadingState:
@@ -114,7 +116,12 @@ export const ClaimPage: React.FC = () => {
     case ClaimPageState.EligibleState:
       return <Eligible />;
     case ClaimPageState.TokenClaimedState:
-      return <TokenClaimed amountClaimed={5000} symbol="HOMIE" />;
+      return (
+        <TokenClaimed
+          amountClaimed={tokenValue(amountToBeClaimed, tokenDecimals)}
+          symbol={tokenSymbol}
+        />
+      );
     default:
       return <>Unknown State 😜</>;
   }

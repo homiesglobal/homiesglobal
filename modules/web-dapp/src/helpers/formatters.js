@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export const n6 = new Intl.NumberFormat("en-us", {
   style: "decimal",
   minimumFractionDigits: 0,
