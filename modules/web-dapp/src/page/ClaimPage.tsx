@@ -1,15 +1,23 @@
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
   Grid,
+  Snackbar,
+  Stack,
   styled,
   Typography,
 } from "@mui/material";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { AppRoute } from "../config/routes";
-import { ClaimPageState, useClaimPage } from "../hooks/useClaimPage";
+import {
+  ClaimPageState,
+  UseClaimPage,
+  useClaimPage,
+} from "../hooks/useClaimPage";
 import { tokenValue } from "../helpers/formatters";
 
 // CenterGrid is a styled mui Grid that centers aligns its
@@ -51,7 +59,11 @@ const NotEligible: React.FC = () => {
   );
 };
 
-const Eligible: React.FC = () => {
+interface EligibleProps {
+  onContinueClicked: () => void;
+}
+
+const Eligible: React.FC<EligibleProps> = ({ onContinueClicked }) => {
   return (
     <CenterGrid container spacing={3}>
       <Grid item xs={12}>
@@ -61,8 +73,41 @@ const Eligible: React.FC = () => {
         <Message>You are eligible for this airdrop.</Message>
       </Grid>
       <Grid item xs={12}>
-        {/* eslint-disable-next-line no-console */}
-        <Button onClick={() => console.log}>Continue to Airdrop</Button>
+        <Button onClick={onContinueClicked}>Continue to Airdrop</Button>
+      </Grid>
+    </CenterGrid>
+  );
+};
+
+interface ClaimTokenProps {
+  amountToBeClaimed: number;
+  symbol: string;
+  onClaimTokensClicked: () => void;
+}
+
+const ClaimToken: React.FC<ClaimTokenProps> = ({
+  amountToBeClaimed,
+  symbol,
+  onClaimTokensClicked,
+}) => {
+  return (
+    <CenterGrid container spacing={3}>
+      <Grid item xs={12}>
+        <Message>Here is your token details below</Message>
+      </Grid>
+      <Grid item xs={12}>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <span>
+            {amountToBeClaimed} {symbol}
+          </span>
+          <ArrowRightAltIcon sx={{ fontSize: 40 }} />
+          <Button onClick={onClaimTokensClicked}>Claim Tokens</Button>
+        </Stack>
       </Grid>
     </CenterGrid>
   );
@@ -100,9 +145,15 @@ const TokenClaimed: React.FC<TokenClaimedProps> = ({
   );
 };
 
-export const ClaimPage: React.FC = () => {
-  const { currentState, amountToBeClaimed, tokenSymbol, tokenDecimals } =
-    useClaimPage();
+const getComponentForPageState = (page: UseClaimPage): React.ReactElement => {
+  const {
+    currentState,
+    amountToBeClaimed,
+    tokenSymbol,
+    tokenDecimals,
+    toClaimTokenState,
+    claimTokens,
+  } = page;
 
   switch (currentState) {
     case ClaimPageState.LoadingState:
@@ -114,7 +165,15 @@ export const ClaimPage: React.FC = () => {
     case ClaimPageState.NotEligibleState:
       return <NotEligible />;
     case ClaimPageState.EligibleState:
-      return <Eligible />;
+      return <Eligible onContinueClicked={toClaimTokenState} />;
+    case ClaimPageState.ClaimTokenState:
+      return (
+        <ClaimToken
+          amountToBeClaimed={tokenValue(amountToBeClaimed, tokenDecimals)}
+          symbol={tokenSymbol}
+          onClaimTokensClicked={claimTokens}
+        />
+      );
     case ClaimPageState.TokenClaimedState:
       return (
         <TokenClaimed
@@ -125,4 +184,21 @@ export const ClaimPage: React.FC = () => {
     default:
       return <>Unknown State 😜</>;
   }
+};
+
+export const ClaimPage: React.FC = () => {
+  const claimPage = useClaimPage();
+  const { error } = claimPage;
+  const viewComponent = getComponentForPageState(claimPage);
+
+  return (
+    <>
+      <Snackbar open={!!error}>
+        <Alert sx={{ fontSize: 15 }} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
+      {viewComponent}
+    </>
+  );
 };

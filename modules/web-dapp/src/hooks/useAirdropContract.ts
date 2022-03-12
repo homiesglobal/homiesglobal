@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AirDrop__factory as AirdropFactory } from "@homiesglobal/contracts";
 import { useWeb3React } from "@web3-react/core";
 import { AirdropContractAddress } from "../config/constants";
@@ -8,6 +8,7 @@ interface UseAirdropContract {
   isWhitelisted?: boolean;
   isClaimed?: boolean;
   amountToBeClaimed?: number;
+  claimTokens: () => Promise<void>;
 }
 
 /**
@@ -27,7 +28,7 @@ export const useAirdropContract = (): UseAirdropContract => {
 
   // useMemo to ensure we only initialize Contract once
   const airdropContract = useMemo(() => {
-    return AirdropFactory.connect(AirdropContractAddress, library);
+    return AirdropFactory.connect(AirdropContractAddress, library.getSigner());
   }, [library]);
 
   // try fetching if address is whitelisted
@@ -37,7 +38,9 @@ export const useAirdropContract = (): UseAirdropContract => {
       .then((isAllowed) => {
         setIsWhitelisted(isAllowed);
       })
-      .catch((err) => setError(`Error checking whitelist status: ${err}`));
+      .catch((err) =>
+        setError(`Error checking whitelist status: ${err.message}`)
+      );
   }, []);
 
   // try fetching if claimed/not only if whitelisted
@@ -54,13 +57,26 @@ export const useAirdropContract = (): UseAirdropContract => {
         setIsClaimed(claimed);
         setAmountToBeClaimed(amount);
       })
-      .catch((err) => setError(`Error checking claimed status: ${err}`));
+      .catch((err) =>
+        setError(`Error checking claimed status: ${err.message}`)
+      );
   }, [isWhitelisted]);
+
+  const claimTokens = useCallback((): Promise<void> => {
+    return airdropContract
+      .claimToken()
+      .then((tx) => tx.wait())
+      .catch((err) => {
+        setError(`Error claiming tokens: ${err.message}`);
+        return Promise.reject(err);
+      });
+  }, []);
 
   return {
     error,
     isWhitelisted,
     isClaimed,
     amountToBeClaimed,
+    claimTokens,
   };
 };
