@@ -3,9 +3,11 @@ import {
   Button,
   CircularProgress,
   Grid,
+  Stack,
   styled,
   Typography,
 } from "@mui/material";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { AppRoute } from "../config/routes";
@@ -68,6 +70,39 @@ const Eligible: React.FC = () => {
   );
 };
 
+interface ClaimTokenProps {
+  amountToBeClaimed: number;
+  symbol: string;
+}
+
+const ClaimToken: React.FC<ClaimTokenProps> = ({
+  amountToBeClaimed,
+  symbol,
+}) => {
+  return (
+    <CenterGrid container spacing={3}>
+      <Grid item xs={12}>
+        <Message>Here is your token details below</Message>
+      </Grid>
+      <Grid item xs={12}>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <span>
+            {amountToBeClaimed} {symbol}
+          </span>
+          <ArrowRightAltIcon sx={{ fontSize: 40 }} />
+          {/* eslint-disable-next-line no-console */}
+          <Button onClick={() => console.log}>Claim Tokens</Button>
+        </Stack>
+      </Grid>
+    </CenterGrid>
+  );
+};
+
 interface TokenClaimedProps {
   amountClaimed: number;
   symbol: string;
@@ -115,6 +150,13 @@ export const ClaimPage: React.FC = () => {
       return <NotEligible />;
     case ClaimPageState.EligibleState:
       return <Eligible />;
+    case ClaimPageState.ClaimTokenState:
+      return (
+        <ClaimToken
+          amountToBeClaimed={tokenValue(amountToBeClaimed, tokenDecimals)}
+          symbol={tokenSymbol}
+        />
+      );
     case ClaimPageState.TokenClaimedState:
       return (
         <TokenClaimed

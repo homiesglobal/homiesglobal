@@ -5,6 +5,7 @@ export enum ClaimPageState {
   LoadingState,
   NotEligibleState,
   EligibleState,
+  ClaimTokenState,
   TokenClaimedState,
 }
 
