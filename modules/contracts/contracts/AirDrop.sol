@@ -26,7 +26,17 @@ contract AirDrop {
         admin = msg.sender;
     }
 
-    function addRecipient(address recipient) public onlyOwner {
+    function addRecipient(address recipient) external onlyOwner {
+        _addRecipient(recipient);
+    }
+
+    function addRecipients(address[] calldata recipients) external onlyOwner {
+        for (uint256 i = 0; i < recipients.length; i++) {
+            _addRecipient(recipients[i]);
+        }
+    }
+
+    function _addRecipient(address recipient) private {
         allowed[recipient] = true;
         emit RecipientAdded(recipient);
     }
