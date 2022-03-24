@@ -4,16 +4,18 @@ import { expect } from "chai";
 import { BigNumber } from "ethers";
 import { AirDrop, HomieToken } from "..";
 
-describe.only("Airdrop contract", async function () {
+describe("Airdrop contract", async function () {
+  let owner: SignerWithAddress;
   let addr1: SignerWithAddress;
   let addr2: SignerWithAddress;
   let addr3: SignerWithAddress;
   let airdrop: AirDrop;
   let homieToken: HomieToken;
   let amountToClaim: BigNumber;
+  let totalAirdropTokens: BigNumber;
 
   before(async () => {
-    [addr1, addr2, addr3] = await ethers.getSigners();
+    [owner, addr1, addr2, addr3] = await ethers.getSigners();
   });
 
   beforeEach(async () => {
@@ -26,6 +28,10 @@ describe.only("Airdrop contract", async function () {
     const Airdrop = await ethers.getContractFactory("AirDrop");
     airdrop = await Airdrop.deploy(homieToken.address, amountToClaim);
     await airdrop.deployed();
+
+    // send money to contract
+    totalAirdropTokens = BigNumber.from(50000000);
+    await homieToken.transfer(airdrop.address, totalAirdropTokens);
   });
 
   // only admin should add recipient
@@ -42,7 +48,7 @@ describe.only("Airdrop contract", async function () {
     expect(notExist).to.be.false;
   });
 
-  it("should be able to add multiple recipients", async function () {
+  it("should be able to add multiple recipients", async () => {
     await expect(airdrop.addRecipients([addr1.address, addr2.address]))
       .to.emit(airdrop, "RecipientAdded")
       .withArgs(addr1.address)
@@ -56,9 +62,6 @@ describe.only("Airdrop contract", async function () {
 
   // should not claim token more than once
   it("should not claim token more than once", async function () {
-    // send money to contract
-    homieToken.transfer(airdrop.address, BigNumber.from(50000000));
-
     await airdrop.addRecipient(addr1.address);
     await airdrop.connect(addr1).claimToken();
 
@@ -66,5 +69,14 @@ describe.only("Airdrop contract", async function () {
       "tokens have been claimed"
     );
     expect(await homieToken.balanceOf(addr1.address)).to.equal(amountToClaim);
+  });
+
+  it("can revert tokens back to admin", async () => {
+    await airdrop.revertTokensToAdmin(true);
+
+    expect(await homieToken.balanceOf(airdrop.address)).to.equal(0);
+    expect(await homieToken.balanceOf(owner.address)).to.equal(
+      totalAirdropTokens
+    );
   });
 });
