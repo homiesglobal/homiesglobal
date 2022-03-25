@@ -21,4 +21,12 @@ module.exports = {
       { ignores: ["modules"] },
     ],
   },
+  overrides: [
+    {
+      files: ["*.test.ts"],
+      rules: {
+        "no-unused-expressions": "off",
+      },
+    },
+  ],
 };

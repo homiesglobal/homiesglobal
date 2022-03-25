@@ -2,31 +2,36 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
-contract AirDrop {
+contract AirDrop is Ownable {
     mapping(address => bool) public allowed;
     mapping(address => bool) public claims;
-    address public admin;
     uint256 public amountToBeClaimed;
-
-    modifier onlyOwner() {
-        require(msg.sender == admin, "only admin can call function");
-        _;
-    }
 
     event TokenClaimed(address indexed recipient);
     event RecipientAdded(address indexed recipient);
+    event TokensReverted(address indexed owner);
 
     IERC20 private homieToken;
 
-    constructor(address _tokenAddress, uint256 _amountToBeClaimed) {
+    constructor(address _tokenAddress, uint256 _amountToBeClaimed) Ownable() {
         homieToken = IERC20(_tokenAddress);
         amountToBeClaimed = _amountToBeClaimed;
-        admin = msg.sender;
     }
 
-    function addRecipient(address recipient) public onlyOwner {
+    function addRecipient(address recipient) external onlyOwner {
+        _addRecipient(recipient);
+    }
+
+    function addRecipients(address[] calldata recipients) external onlyOwner {
+        for (uint256 i = 0; i < recipients.length; i++) {
+            _addRecipient(recipients[i]);
+        }
+    }
+
+    function _addRecipient(address recipient) private {
         allowed[recipient] = true;
         emit RecipientAdded(recipient);
     }
@@ -45,5 +50,19 @@ contract AirDrop {
             "airdrop transfer failed"
         );
         emit TokenClaimed(msg.sender);
+    }
+
+    function revertTokensToAdmin(bool drainEth) public onlyOwner {
+        if (drainEth) {
+            payable(owner()).transfer(address(this).balance);
+        }
+
+        uint256 airdropBalance = homieToken.balanceOf(address(this));
+
+        emit TokensReverted(owner());
+        require(
+            homieToken.transfer(msg.sender, airdropBalance),
+            "token transfer failed"
+        );
     }
 }
