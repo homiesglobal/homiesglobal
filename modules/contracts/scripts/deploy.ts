@@ -17,13 +17,13 @@ async function main() {
   // NOTE: Do not delete the Greeter contract
   // AND Kindly ensure this is always the first contract to be deployed, so the
   // address of the contract deployed to hardhats local console never changes.
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, HOMIE!");
+  // const Greeter = await ethers.getContractFactory("Greeter");
+  // const greeter = await Greeter.deploy("Hello, HOMIE!");
 
   const HomieToken = await ethers.getContractFactory("HomieToken");
   const homieToken = await HomieToken.deploy();
 
-  await greeter.deployed();
+  // await greeter.deployed();
   await homieToken.deployed();
 
   const Airdrop = await ethers.getContractFactory("AirDrop");
@@ -36,7 +36,7 @@ async function main() {
   await airdrop.deployed();
   homieToken.transfer(airdrop.address, BigNumber.from(25000000));
 
-  console.log("Greeter deployed to:", greeter.address);
+  // console.log("Greeter deployed to:", greeter.address);
   console.log("HomieToken deployed to:", homieToken.address);
   console.log("Airdrop deployed to:", airdrop.address);
 }

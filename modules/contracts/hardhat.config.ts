@@ -30,6 +30,13 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    bsc_mainnet: {
+      url: process.env.MAINNET_URL || "",
+      accounts:
+        process.env.HOMIE_PRIVATE_KEY !== undefined
+          ? [process.env.HOMIE_PRIVATE_KEY]
+          : [],
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
