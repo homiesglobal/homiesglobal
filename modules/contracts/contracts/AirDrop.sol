@@ -21,11 +21,11 @@ contract AirDrop is Ownable {
         amountToBeClaimed = _amountToBeClaimed;
     }
 
-    function addRecipient(address recipient) external onlyOwner {
+    function addRecipient(address recipient) public onlyOwner {
         _addRecipient(recipient);
     }
 
-    function addRecipients(address[] calldata recipients) external onlyOwner {
+    function addRecipients(address[] calldata recipients) public onlyOwner {
         for (uint256 i = 0; i < recipients.length; i++) {
             _addRecipient(recipients[i]);
         }
